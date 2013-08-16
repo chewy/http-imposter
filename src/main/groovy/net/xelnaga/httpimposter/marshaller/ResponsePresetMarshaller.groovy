@@ -8,7 +8,7 @@ import net.xelnaga.httpimposter.model.ResponsePreset
 class ResponsePresetMarshaller {
 
     ResponsePreset fromJson(Map json) {
-        
+
         ResponsePreset imposterResponse = new ResponsePreset(
                 status: json.status,
                 body: new String(Base64.decodeBase64((String) json.body))

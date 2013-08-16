@@ -2,6 +2,7 @@ package net.xelnaga.httpimposter
 
 import com.google.gson.Gson
 import net.xelnaga.httpimposter.factory.RequestPatternFactory
+import net.xelnaga.httpimposter.factory.ResponsePresetFactory
 import net.xelnaga.httpimposter.filter.HttpHeaderFilter
 import net.xelnaga.httpimposter.marshaller.RequestPatternMarshaller
 import net.xelnaga.httpimposter.marshaller.ResponsePresetMarshaller
@@ -17,11 +18,15 @@ class HttpImposter {
 
     Gson gson = new Gson()
 
+    ResponsePresetFactory responsePresetFactory = new ResponsePresetFactory()
+
     RequestPatternFactory requestPatternFactory = new RequestPatternFactory()
     RequestPatternMarshaller requestPatternMarshaller = new RequestPatternMarshaller()
     ResponsePresetMarshaller responsePresetMarshaller = new ResponsePresetMarshaller()
 
-    Engine engine = new Engine()
+    Engine engine = new Engine(
+            responsePresetFactory: responsePresetFactory
+    )
 
     ResponseWriter responseWriter = new ResponseWriter()
 

@@ -1,5 +1,6 @@
 package net.xelnaga.httpimposter
 
+import net.xelnaga.httpimposter.factory.ResponsePresetFactory
 import net.xelnaga.httpimposter.model.Interaction
 import net.xelnaga.httpimposter.model.Report
 import net.xelnaga.httpimposter.model.RequestPattern
@@ -11,13 +12,16 @@ class Engine {
     private List<Interaction> interactions
 
     ResponseProvider responseProvider
+    ResponsePresetFactory responsePresetFactory
 
     Engine() {
 
         expectations = []
         interactions = []
 
-        responseProvider = new MappedResponseProvider()
+        responseProvider = new MappedResponseProvider(
+                responsePresetFactory: responsePresetFactory
+        )
     }
 
     Report getReport() {

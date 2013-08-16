@@ -1,5 +1,6 @@
 package net.xelnaga.httpimposter
 
+import net.xelnaga.httpimposter.model.ByteArrayResponsePreset
 import net.xelnaga.httpimposter.model.HttpHeader
 import net.xelnaga.httpimposter.model.ResponsePreset
 import net.xelnaga.httpimposter.serializer.ReportSerializer
@@ -46,6 +47,31 @@ class ResponseWriterSpec extends Specification {
             httpResponse.getHeader('Lemon') == 'Lime'
             httpResponse.contentAsString == 'qwertyuiop'
     }
+
+    def 'write byte array response preset'() {
+
+        given:
+            ByteArrayResponsePreset responsePreset = new ByteArrayResponsePreset(
+                    status: 234,
+                    headers: [
+                        new HttpHeader('Content-Type', 'text/exciting'),
+                        new HttpHeader('Lemon', 'Lime')
+                    ],
+                    body: 'qwertyuiop'.bytes
+            )
+
+            MockHttpServletResponse httpResponse = new MockHttpServletResponse()
+
+        when:
+            writer.write(responsePreset, httpResponse)
+
+        then:
+            httpResponse.status == 234
+            httpResponse.contentType == 'text/exciting'
+            httpResponse.getHeader('Lemon') == 'Lime'
+            httpResponse.contentAsString == 'qwertyuiop'
+    }
+
 
     def 'write report'() {
 
