@@ -1,8 +1,11 @@
 package net.xelnaga.httpimposter.factory
 
+import net.xelnaga.httpimposter.model.BaseResponsePreset
+import net.xelnaga.httpimposter.model.ByteArrayResponsePreset
 import net.xelnaga.httpimposter.model.HttpHeader
 import net.xelnaga.httpimposter.model.ResponsePreset
 import spock.lang.Specification
+import spock.lang.Unroll
 
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR
 
@@ -27,5 +30,21 @@ class ResponsePresetFactorySpec extends Specification {
                     ],
                     body: 'UNEXPECTED REQUEST PATTERN'
             )
+    }
+
+    @Unroll
+    def 'make response preset by type'() {
+
+        when:
+            BaseResponsePreset responsePreset = factory.makeResponsePreset(type)
+
+        then:
+            responsePreset.class == expected
+
+        where:
+            type        | expected
+            'String'    | ResponsePreset
+            'ByteArray' | ByteArrayResponsePreset
+            null        | ResponsePreset
     }
 }

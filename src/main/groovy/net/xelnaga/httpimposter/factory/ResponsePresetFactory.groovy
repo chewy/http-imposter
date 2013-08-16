@@ -1,5 +1,7 @@
 package net.xelnaga.httpimposter.factory
 
+import net.xelnaga.httpimposter.model.BaseResponsePreset
+import net.xelnaga.httpimposter.model.ByteArrayResponsePreset
 import net.xelnaga.httpimposter.model.ResponsePreset
 
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR
@@ -16,5 +18,14 @@ class ResponsePresetFactory {
                 ],
                 body: 'UNEXPECTED REQUEST PATTERN'
         )
+    }
+
+    BaseResponsePreset makeResponsePreset(String type) {
+
+        if (type == 'ByteArray') {
+            return new ByteArrayResponsePreset()
+        }
+
+        return new ResponsePreset()
     }
 }

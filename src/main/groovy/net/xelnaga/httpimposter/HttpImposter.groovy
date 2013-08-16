@@ -22,7 +22,7 @@ class HttpImposter {
 
     RequestPatternFactory requestPatternFactory = new RequestPatternFactory()
     RequestPatternMarshaller requestPatternMarshaller = new RequestPatternMarshaller()
-    ResponsePresetMarshaller responsePresetMarshaller = new ResponsePresetMarshaller()
+    ResponsePresetMarshaller responsePresetMarshaller = new ResponsePresetMarshaller(responsePresetFactory: responsePresetFactory)
 
     Engine engine = new Engine(
             responsePresetFactory: responsePresetFactory
